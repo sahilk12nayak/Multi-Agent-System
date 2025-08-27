@@ -130,12 +130,8 @@ At least three distinct tools:
 
 ### How to run the tests
 
-1. Make sure you have `pytest` installed:
-   `bash\npip install pytest\n`
-2. From the directory containing the canvas file, run:
-   `bash\npytest smart_scientific_assistant_langgraph.py::test_mcp_full_flow -q\n`
-   Or run all tests in the file:
-   `bash\npytest smart_scientific_assistant_langgraph.py -q\n`
+pip install pytest
+pytest smart_scientific_assistant_langgraph.py -q
 
 
 
