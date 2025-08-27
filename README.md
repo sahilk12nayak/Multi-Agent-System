@@ -117,5 +117,4 @@ At least three distinct tools:
 
 
 
-If you want, I can now **write the actual LangGraph code** for this — defining the three agents, their tools, and the connections — so you could **run an MVP immediately**.
-That code would already have the orchestration and API integration stubs in place.
+
