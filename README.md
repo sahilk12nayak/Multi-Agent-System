@@ -61,6 +61,7 @@
 ```text
 User → ResearchAgent → AnalysisAgent → WriterAgent → User
 ```
+<img width="722" height="608" alt="image" src="https://github.com/user-attachments/assets/217a8f49-e911-4f00-afdf-8cd0b8a97147" />
 
 **Steps:**
 
