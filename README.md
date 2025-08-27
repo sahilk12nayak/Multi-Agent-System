@@ -115,6 +115,31 @@ At least three distinct tools:
 [User]
 ```
 
+ We implemented a simple **MCP (Message-Centric Protocol)** within the LangGraph-style skeleton and added **pytest-compatible automated tests**.
+
+
+* **MCPMessage & MCPChannel** — lightweight message schema and thread-safe pub/sub channel.
+* **Agents** (ResearchAgent, AnalysisAgent, WriterAgent) now **receive/request via MCP** and reply with structured messages.
+* **MCPOrchestrator** — an orchestrator that sends requests, waits for replies (with timeout), and runs the full topic flow.
+* **Agent lifecycle helpers** (`start_agents`, `stop_agents`) to run agents in threads for integration testing.
+* **Automated tests (pytest)**:
+
+  * `test_mcp_message_roundtrip` — verifies ResearchAgent replies to a search request.
+  * `test_mcp_full_flow` — end-to-end flow: search → analyze → compose → produce report.
+  * `test_agent_unsubscribe_on_stop` — ensures agents unsubscribe properly when stopped.
+
+### How to run the tests
+
+1. Make sure you have `pytest` installed:
+   `bash\npip install pytest\n`
+2. From the directory containing the canvas file, run:
+   `bash\npytest smart_scientific_assistant_langgraph.py::test_mcp_full_flow -q\n`
+   Or run all tests in the file:
+   `bash\npytest smart_scientific_assistant_langgraph.py -q\n`
+
+
+
+
 
 
 
