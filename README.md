@@ -131,6 +131,7 @@ At least three distinct tools:
 ### How to run the tests
 
 pip install pytest
+
 pytest smart_scientific_assistant_langgraph.py -q
 
 
