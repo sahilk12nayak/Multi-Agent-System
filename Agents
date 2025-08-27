@@ -1,0 +1,43 @@
+Define Agents
+# ---------------------------
+def query_analyst(state: ResearchState) -> ResearchState:
+    """Classify user query into a task_type"""
+    if "review" in state.query.lower() or "paper" in state.query.lower():
+        state.task_type = "literature_review"
+    elif "explain" in state.query.lower():
+        state.task_type = "explanation"
+    elif "compare" in state.query.lower():
+        state.task_type = "comparison"
+    else:
+        state.task_type = "data_extraction"
+    return state
+
+def research_retriever(state: ResearchState) -> ResearchState:
+    """Retrieve relevant sources based on query"""
+    # Example mock data (replace with real RAG/retrieval later)
+    if state.task_type in ["literature_review", "data_extraction"]:
+        state.sources = [
+            {"title": "GNN in Chemistry", "authors": "X et al.", "url": "http://example.com/1", "summary": "GNNs outperform CNNs in predicting properties."},
+            {"title": "Graph Neural Networks Review", "authors": "Y et al.", "url": "http://example.com/2", "summary": "Recent trends and methods in GNNs."}
+        ]
+    return state
+
+def knowledge_synthesizer(state: ResearchState) -> ResearchState:
+    """Create structured summary"""
+    if state.sources:
+        summaries = [s["summary"] for s in state.sources]
+        state.synthesis = " ".join(summaries)
+    else:
+        state.synthesis = f"Explanation for query: {state.query}"
+    return state
+
+def output_formatter(state: ResearchState) -> ResearchState:
+    """Format the final output"""
+    if state.synthesis:
+        output = f"### Task: {state.task_type}\n\n{state.synthesis}\n"
+        if state.sources:
+            output += "\n**Sources:**\n"
+            for s in state.sources:
+                output += f"- [{s['title']}]({s['url']}) by {s['authors']}\n"
+        state.formatted_output = output
+    return state
