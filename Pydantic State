@@ -3,11 +3,23 @@ from pydantic import BaseModel, Field
 from langgraph.graph import StateGraph, END
 
 # ---------------------------
-# 1️⃣ Define Pydantic State
+#  Define Pydantic State
 # ---------------------------
 class ResearchState(BaseModel):
-    query: str
-    task_type: Optional[str] = None
-    sources: Optional[List[Dict[str, str]]] = None
-    synthesis: Optional[str] = None
-    formatted_output: Optional[str] = None
+    # User input
+    query: str = Field(..., description="Original user query")
+    
+    # Decided by Query Analyst
+    task_type: Optional[str] = Field(None, description="Query type: literature_review, explanation, comparison, data_extraction")
+    
+    # Filled by Research Retriever
+    sources: Optional[List[Dict[str, str]]] = Field(
+        None,
+        description="List of retrieved sources, each as dict with title, authors, url, summary"
+    )
+ # Filled by Knowledge Synthesizer
+    synthesis: Optional[str] = Field(None, description="Structured summary of retrieved sources")
+    
+    # Filled by Output Formatter
+    formatted_output: Optional[str] = Field(None, description="Final output for user, e.g., Markdown or text")
+
